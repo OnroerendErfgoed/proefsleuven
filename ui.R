@@ -12,6 +12,7 @@ shinyUI(fluidPage(
                    choices = list("Aantal" = 1, "Oppervlakte" = 2), selected = 1),
       
       conditionalPanel(condition="input.conditionedPanels == 'Histogram'",
+                       p('Opties'),
                        checkboxInput("normaal", "Normaalverdeling weergeven", TRUE),
                        checkboxInput("densiteit", "Densiteitscurve weergeven", TRUE)
       ),
