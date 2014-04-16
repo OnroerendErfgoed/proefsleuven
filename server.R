@@ -2,16 +2,13 @@ library(shiny)
 
 shinyServer(function(input,output) {
   
-  
-  
   load_data <- function (path) {
-      t <- read.csv(path)
-      t$rotatiegroep <- cut(t$ROTATION, seq(0, 180, input$rotatiegroepgrootte))
-    return(t)}
-    
-
+    t <- read.csv(path)
+    t$rotatiegroep <- cut(t$ROTATION, seq(0, 180, input$rotatiegroepgrootte))
+    return(t)}    
+  
   get_dataset <- reactive(load_data(input$dataset))
-
+  
   get_explanatory <- reactive({
     d = get_dataset()
     if (input$explanatory == 1){
@@ -34,23 +31,23 @@ shinyServer(function(input,output) {
   
   output$histPlot <- renderPlot({
     hist(
-           get_explanatory(), 
-           main="Histogram van het aantal gedetecteerde sporen",
-           ylab="Frequentie",
-           xlab="Aantal gedetecteerde sporen",
-           prob=TRUE
+      get_explanatory(), 
+      main="Histogram van het aantal gedetecteerde sporen",
+      ylab="Frequentie",
+      xlab="Aantal gedetecteerde sporen",
+      prob=TRUE
     )
     
     if (input$normaal) curve(dnorm(x,
                                    mean=mean(get_explanatory()), 
                                    sd=sd(get_explanatory())
-                                   ), 
-                              col="darkblue",
-                              lwd=2,
-                              add=TRUE,
-                              yaxt="n"
-                              )
-  
+    ), 
+    col="darkblue",
+    lwd=2,
+    add=TRUE,
+    yaxt="n"
+    )
+    
     if (input$densiteit) lines(density(get_explanatory()), col="red")  
   })
   
@@ -65,7 +62,7 @@ shinyServer(function(input,output) {
   
   output$anovaSummary <- renderTable({
     summary(aov_model())
-    })
+  })
   
   output$anovaPlot <- renderPlot({
     par(mfrow=c(2,2))
