@@ -11,10 +11,12 @@ shinyUI(fluidPage(
                  choices = list("Aantal" = 1, "Oppervlakte" = 2), selected = 1),
   
     conditionalPanel(condition="input.conditionedPanels == 'Histogram'",
-    checkboxInput("normaal", "Normaalverdeling weergeven", TRUE),
-    checkboxInput("densiteit", "Densiteitscurve weergeven", TRUE)
+      checkboxInput("normaal", "Normaalverdeling weergeven", TRUE),
+      checkboxInput("densiteit", "Densiteitscurve weergeven", TRUE)
     ),
-    sliderInput("rotatiegroepgrootte", "Grootte van de roatatiegroepen:", 5, 60, 10, step=5)
+    conditionalPanel(condition="input.conditionedPanels != 'Histogram'",
+      sliderInput("rotatiegroepgrootte", "Grootte van de roatatiegroepen:", 5, 60, 10, step=5)
+    )
   ),
     
   

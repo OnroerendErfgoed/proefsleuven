@@ -2,15 +2,18 @@ library(shiny)
 
 shinyServer(function(input,output) {
   
-  load_data <- reactive( 
-    function () {
-      t <- read.csv(input$dataset)
+  
+  
+  load_data <- function (path) {
+      t <- read.csv(path)
       t$rotatiegroep <- cut(t$ROTATION, seq(0, 180, input$rotatiegroepgrootte))
     return(t)}
-    )
+    
+
+  get_dataset <- reactive(load_data(input$dataset))
 
   get_explanatory <- reactive({
-    d = load_data()
+    d = get_dataset()
     if (input$explanatory == 1){
       d$F_INT
     }else{
@@ -19,7 +22,7 @@ shinyServer(function(input,output) {
   })
   
   get_model_formula <- function(explanatory) {
-    d = load_data()
+    d = get_dataset()
     if (explanatory == 1){
       as.formula(d$F_INT ~ d$rotatiegroep)
     }else{
@@ -39,18 +42,18 @@ shinyServer(function(input,output) {
     )
     
     if (input$normaal) curve(dnorm(x,
-                                      mean=mean(get_explanatory()), 
-                                      sd=sd(get_explanatory())
+                                   mean=mean(get_explanatory()), 
+                                   sd=sd(get_explanatory())
                                    ), 
-                                   col="darkblue",
-                                   lwd=2,
-                                   add=TRUE,
-                                   yaxt="n"
-                                   )
+                              col="darkblue",
+                              lwd=2,
+                              add=TRUE,
+                              yaxt="n"
+                              )
   
-    if (input$densiteit) lines(density(get_explanatory()), col="red")
-    
+    if (input$densiteit) lines(density(get_explanatory()), col="red")  
   })
+  
   output$qqPlot <- renderPlot({
     qqnorm(get_explanatory(), main="Kwantiel-Kwantiel-plot van aantal gedetecteerde sporen")
     qqline(get_explanatory(), col="red")
@@ -75,5 +78,5 @@ shinyServer(function(input,output) {
     plot(TukeyHSD(aov_model()), las=1, cex.axis=0.65)
   }, height=2000)
   
-  output$tabel <- renderDataTable({ load_data() })
+  output$tabel <- renderDataTable({ get_dataset() })
 })
