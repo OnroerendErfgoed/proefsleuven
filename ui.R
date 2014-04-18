@@ -6,24 +6,25 @@ shinyUI(navbarPage('Simulaties',
   
     sidebarLayout(
       sidebarPanel(
-        selectInput("dataset", "Kies een dataset:", 
+        selectInput("dataset", h6("Kies een dataset:"), 
                     choices = list.files("./data", full.names=TRUE)),
+        downloadButton('downloadData', 'Download brondata'),
         conditionalPanel(
           condition="input.conditionedPanels != 'Brondata'",
           radioButtons(
                        "explanatory", 
-                       "Verklarende variabele",
+                       h6("Verklarende variabele"),
                        choices = list("Aantal" = 1, "Oppervlakte" = 2),
                        selected = 1
                       )
         ),
         conditionalPanel(condition="input.conditionedPanels == 'Histogram'",
-                         p('Opties'),
+                         h6('Opties'),
                          checkboxInput("normaal", "Normaalverdeling weergeven", TRUE),
                          checkboxInput("densiteit", "Densiteitscurve weergeven", TRUE)
         ),
         conditionalPanel(condition="input.conditionedPanels != 'Histogram'",
-                         sliderInput("rotatiegroepgrootte", "Grootte van de roatatiegroepen:", 5, 60, 10, step=5)
+                         sliderInput("rotatiegroepgrootte", h6("Grootte van de roatatiegroepen:"), 5, 60, 10, step=5)
         )
       ),
       
@@ -54,7 +55,8 @@ shinyUI(navbarPage('Simulaties',
             plotOutput("TukeyHSD")
           ),
           
-          tabPanel('Brondata', dataTableOutput('tabel')),
+          tabPanel('Brondata',
+                   dataTableOutput('tabel')),
           id = "conditionedPanels"
         )))
 )))
