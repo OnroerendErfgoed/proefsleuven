@@ -35,7 +35,8 @@ shinyServer(function(input,output) {
       main="Histogram van het aantal gedetecteerde sporen",
       ylab="Frequentie",
       xlab="Aantal gedetecteerde sporen",
-      prob=TRUE
+      prob=TRUE,
+      ylim= c(0, ceiling(max(hist(get_explanatory())$density*1005))/1000)
     )
     
     if (input$normaal) curve(dnorm(x,
@@ -76,4 +77,13 @@ shinyServer(function(input,output) {
   }, height=2000)
   
   output$tabel <- renderDataTable({ get_dataset() })
+  
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste('data-', Sys.Date(), '.csv', sep='')
+    },
+    content = function(con) {
+      write.csv(get_dataset(), con)
+    }
+  )
 })
