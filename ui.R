@@ -8,9 +8,15 @@ shinyUI(navbarPage('Simulaties',
       sidebarPanel(
         selectInput("dataset", "Kies een dataset:", 
                     choices = list.files("./data", full.names=TRUE)),
-        radioButtons("explanatory", "Verklarende variabele",
-                     choices = list("Aantal" = 1, "Oppervlakte" = 2), selected = 1),
-        
+        conditionalPanel(
+          condition="input.conditionedPanels != 'Brondata'",
+          radioButtons(
+                       "explanatory", 
+                       "Verklarende variabele",
+                       choices = list("Aantal" = 1, "Oppervlakte" = 2),
+                       selected = 1
+                      )
+        ),
         conditionalPanel(condition="input.conditionedPanels == 'Histogram'",
                          p('Opties'),
                          checkboxInput("normaal", "Normaalverdeling weergeven", TRUE),
@@ -48,7 +54,7 @@ shinyUI(navbarPage('Simulaties',
             plotOutput("TukeyHSD")
           ),
           
-          tabPanel('brondata', dataTableOutput('tabel'), id="Brondata"),
+          tabPanel('Brondata', dataTableOutput('tabel')),
           id = "conditionedPanels"
         )))
 )))
