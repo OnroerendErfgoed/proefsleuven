@@ -33,16 +33,17 @@ shinyUI(navbarPage('Simulaties',
           
           tabPanel(
             'Histogram',
-            h3('Histogram'),
-            plotOutput("histPlot"),
-            h3('Kwantiel-Kwantielplot'),
-            plotOutput("qqPlot")
+            plotOutput("histPlot", height="100%")
+          ),
+        
+          tabPanel(
+            'QQ-plot',
+            plotOutput("qqPlot", height="100%")
           ),
           
           tabPanel(
             'Boxplot',
-            h3('Boxplot'),
-            plotOutput("boxPlot")
+            plotOutput("boxPlot", height="100%")
           ),
           
           tabPanel(
@@ -50,9 +51,9 @@ shinyUI(navbarPage('Simulaties',
             h3('Anova tabel'),
             tableOutput("anovaSummary"),
             h3('Anova plot'),
-            plotOutput("anovaPlot"),
+            plotOutput("anovaPlot", height="100%"),
             h3('Tukey Honest Significant Difference test'),
-            plotOutput("TukeyHSD")
+            plotOutput("TukeyHSD", height="100%")
           ),
           
           tabPanel('Brondata',

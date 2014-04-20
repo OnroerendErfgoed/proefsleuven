@@ -50,16 +50,16 @@ shinyServer(function(input,output) {
     )
     
     if (input$densiteit) lines(density(get_explanatory()), col="red")  
-  })
+  }, height=500)
   
   output$qqPlot <- renderPlot({
     qqnorm(get_explanatory(), main="Kwantiel-Kwantiel-plot van aantal gedetecteerde sporen")
     qqline(get_explanatory(), col="red")
-  })
+  }, height=500)
   
   output$boxPlot <- renderPlot({
     boxplot(get_model_formula(input$explanatory), notch=TRUE,las=2, main="Boxplot van aantal gedetecteerde sporen per rotatiegroep")
-  })
+  }, height=500)
   
   output$anovaSummary <- renderTable({
     summary(aov_model())
@@ -69,7 +69,7 @@ shinyServer(function(input,output) {
     par(mfrow=c(2,2))
     plot(aov_model())
     par(mfrow=c(1,1))
-  })
+  }, height=600)
   
   output$TukeyHSD <- renderPlot({
     par(mar=c(5,9,4,1)+.1)
