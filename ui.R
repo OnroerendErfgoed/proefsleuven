@@ -48,12 +48,20 @@ shinyUI(navbarPage('Simulaties',
           
           tabPanel(
             'Anova',
-            h3('Anova tabel'),
-            tableOutput("anovaSummary"),
-            h3('Anova plot'),
-            plotOutput("anovaPlot", height="100%"),
-            h3('Tukey Honest Significant Difference test'),
-            plotOutput("TukeyHSD", height="100%")
+            tabsetPanel(
+              tabPanel(
+                'Tabel',
+                tableOutput("anovaSummary")
+              ),
+              tabPanel(
+                'Plot',
+                plotOutput("anovaPlot", height="100%")
+              ),
+              tabPanel(
+                'Tukey HSD',
+                plotOutput("TukeyHSD", height="100%")
+              )
+            )
           ),
           
           tabPanel('Brondata',
