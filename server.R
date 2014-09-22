@@ -2,16 +2,28 @@ library(shiny)
 
 shinyServer(function(input,output) {
   
-  # Function to load data from csv located at 'path' and add a rotationgroup
-  load_data <- function (path) {
+  #' Function to load data from csv located at 'path' and add a rotationgroup
+  #' 
+  #' @param path Path to csv
+  #' @param rotation_group_size Integer value representing the size of the rotationgroups
+  #' @return returns dataframe containing the data from the csv-file, augmented
+  #' with a rotationgroup
+  #' @details This function should not be used directly. Call get_dataset instead.
+  load_data <- function (path, rotation_group_size=10) {
     t <- read.csv(path)
-    t$rotatiegroep <- cut(t$ROTATION, seq(0, 180, input$rotatiegroepgrootte))
+    t$rotatiegroep <- cut(t$ROTATION, seq(0, 180, rotation_group_size))
     return(t)}    
   
-  # reactive wrapper around load_data function call
-  get_dataset <- reactive(load_data(input$dataset))
   
-  #reactive function that returns the selected explenatory variable
+  #' Reactive wrapper around load_data function call
+  #' 
+  #' @return Dataframe with selected data and rotation group size
+  get_dataset <- reactive(load_data(input$dataset, input$rotatiegroepgrootte))
+  
+  
+  #' Reactive function that returns the selected explanatory variable
+  #'
+  #' @return Returns vector of the selected explanatory variable
   get_explanatory <- reactive({
     d = get_dataset()
     if (input$explanatory == 1){
@@ -21,26 +33,31 @@ shinyServer(function(input,output) {
     }
   })
   
-  # reactive function that returns the model formula depending on the selected 
-  #explenatory variable
+  #' Reactive function that returns the model formula depending on the selected 
+  #' explanatory variable
+  #' 
+  #' @param explanatory integer value representing the selected value for 
+  #' the explanatory. variable
   get_model_formula <- function(explanatory) {
     d = get_dataset()
     if (explanatory == 1){
-      as.formula(d$F_INT ~ d$rotatiegroep)
+      with(d, as.formula(F_INT ~ rotatiegroep))
     }else{
-      as.formula(d$A_INT ~ d$rotatiegroep)
+      with(d, as.formula(d$A_INT ~ d$rotatiegroep))
     }
   }
   
-  # returns the ANOVA model
+  #' Reactive wrapper around aov dor the model
+  #' 
+  #' @return aov model
   aov_model <- reactive(aov(get_model_formula(input$explanatory)))
   
-  # return histogram plot, sets ylim a bit higher so that the normal curve
+  # ' Render histogram plot, sets ylim a bit higher so that the normal curve
   # always fits inside the plot
   output$histPlot <- renderPlot({
     hist(
       get_explanatory(), 
-      main="Histogram van het aantal gedetecteerde sporen",
+      main="Histogram van gedetecteerde sporen",
       ylab="Frequentie",
       xlab="Aantal gedetecteerde sporen",
       prob=TRUE,
@@ -64,9 +81,11 @@ shinyServer(function(input,output) {
   output$qqPlot <- renderPlot(
     {
      qqnorm(get_explanatory(), 
-            main="Kwantiel-Kwantiel-plot van aantal gedetecteerde sporen")
-            qqline(get_explanatory(), 
-            col="red")
+            main="Kwantiel-Kwantiel-plot van gedetecteerde sporen",
+            xlab="Theoretische kwantielen",
+            ylab="Sample kwantielen")
+     qqline(get_explanatory(), 
+     col="red")
     },
     height=500)
   
