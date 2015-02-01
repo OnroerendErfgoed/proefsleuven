@@ -122,7 +122,7 @@ shinyServer(function(input,output) {
     height=2000)
   
   # output current dataframe
-  output$tabel <- renderDataTable({ get_dataset() })
+  output$tabel <- renderDataTable({ get_dataset()}, options = list(pageLength = 10))
   
   # create csv-download of current dataframe
   output$downloadData <- downloadHandler(
