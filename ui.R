@@ -9,6 +9,7 @@ sidebar <- dashboardSidebar(
                   "Verklarende variabele",
                   choices = list("Aantal" = 1, "Oppervlakte" = 2),
                   selected = 1),
+              sliderInput("rotatiegroepgrootte", "Grootte van de roatatiegroepen", 5, 60, 10, step=5),
               sidebarMenu(
                   menuItem('Histogram', tabName='histogram'),
                   menuItem('Anova', tabName='anova'),
@@ -37,8 +38,7 @@ body <-dashboardBody(
                   solidHeader=TRUE,
                   status = "primary",
                   width=12, 
-                  plotOutput("boxPlot", height='100%'), 
-                  sliderInput("rotatiegroepgrootte", "Grootte van de roatatiegroepen", 5, 60, 10, step=5)))),
+                  plotOutput("boxPlot")))),
             
             tabItem(tabName='anova',
               fluidRow(

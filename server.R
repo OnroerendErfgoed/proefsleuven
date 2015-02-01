@@ -97,7 +97,7 @@ shinyServer(function(input,output) {
      las=2,
      main="Boxplot van aantal gedetecteerde sporen per rotatiegroep")
     },
-    height=500)
+    height=600)
   
   # output summary table
   output$anovaSummary <- renderTable({
