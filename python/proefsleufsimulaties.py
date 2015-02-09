@@ -440,7 +440,7 @@ for Simulations in range (1, NSimulations + 1):
     elif RotationChoice == "Regelmatig oplopend":
         RotationDegrees = RotationDegrees + RotationIncrease
     else:
-                arcpy.AddMessage(RotationChoice)
+        arcpy.AddMessage(RotationChoice)
         RotationDegrees = float(FixedRotation)
     
     RotationRadians = math.radians(RotationDegrees)
