@@ -286,6 +286,7 @@ arcpy.AddField_management(SimResult, "F_INT", "LONG", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "A_INT", "FLOAT", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "F_INT_P", "FLOAT", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "A_INT_P", "FLOAT", "", "", "", "", "")
+arcpy.AddField_managenent(SimResult, "F_INT_C", "FLOAT", "", "", "", "", "")
 
 if ExtentFeatureClass <> "":
     AnalysisFeatureClass = simGDB+"ClippedFeatures"
@@ -745,17 +746,21 @@ for Simulations in range (1, NSimulations + 1):
     # tel aantal doorsneden sporen en doorsneden oppervlakte
 
     ClippedFeatures = int(arcpy.GetCount_management(SimPlanClip_3).getOutput(0))
+    ClippedFeaturesIntersectionCount = 0
+    with arcpy.da.SearchCursor(ExtentFeatureClass, "Join_Count") as cursor:     
+        for row in cursor:                                                      
+            ClippedFeaturesIntersectionCount = ClippedFeaturesIntersectionCount + row[0] 
     TotalFeatures = int(arcpy.GetCount_management(AnalysisFeatureClass).getOutput(0))
     ClippedFeaturesProportion = float(ClippedFeatures) / float(TotalFeatures)
     ClippedFeaturesPercentage = float(100 * ClippedFeaturesProportion)
 
     arcpy.AddMessage("Aantal doorsneden sporen: "+str(ClippedFeatures)+" van "+str(TotalFeatures))
     
-# let op hier, de arcpy.da.SearchCursor functie werkte niet naar behoren, want de cursor kon niet worden teruggezet op 0
-# voor hergebruik (mogelijk een bug in ArcGIS 10.1?)
+    # let op hier, de arcpy.da.SearchCursor functie werkte niet naar behoren, want de cursor kon niet worden teruggezet op 0
+    # voor hergebruik (mogelijk een bug in ArcGIS 10.1?)
 
-# daarom worden de waarden van de spoorcategorieën en bijbehorende oppervlakten in een Python-array opgeslagen
-# als AnalysisField niet is ingevuld, dan wordt deze stap overgeslagen
+    # daarom worden de waarden van de spoorcategorieën en bijbehorende oppervlakten in een Python-array opgeslagen
+    # als AnalysisField niet is ingevuld, dan wordt deze stap overgeslagen
 
     ClippedArea = 0
     
@@ -785,7 +790,7 @@ for Simulations in range (1, NSimulations + 1):
     
     # voeg de resultaten van de simulatie toe aan SimResult
 
-    SimResult_Cursor = arcpy.da.InsertCursor(SimResult, ("RUN", "TRENCH_AREA", "TRENCH_P", "ROTATION", "MID_X", "MID_Y", "F_INT", "A_INT", "F_INT_P", "A_INT_P"))
+    SimResult_Cursor = arcpy.da.InsertCursor(SimResult, ("RUN", "TRENCH_AREA", "TRENCH_P", "ROTATION", "MID_X", "MID_Y", "F_INT", "A_INT", "F_INT_P", "A_INT_P", "F_INT_C" ))
     SimResult_Cursor.insertRow((Simulations,
                                     TrenchArea,
                                     TrenchProportion,
@@ -795,7 +800,8 @@ for Simulations in range (1, NSimulations + 1):
                                     ClippedFeatures,
                                     ClippedArea,
                                     ClippedFeaturesPercentage,
-                                    ClippedAreaPercentage))
+                                    ClippedAreaPercentage,
+                                    ClippedFeaturesIntersectionCount))
                                     
     edit.stopEditing(True)
                                     
