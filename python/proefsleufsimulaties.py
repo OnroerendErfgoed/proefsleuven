@@ -224,7 +224,7 @@ if ExtentFeatureClass <> "":
         for row in cursor:
             AnalysisArea = AnalysisArea + row[0]
 else:	
-	AnalysisExtent = arcpy.Describe(InputFeatureClass).extent
+    AnalysisExtent = arcpy.Describe(InputFeatureClass).extent
     AnalysisArea = (AnalysisExtent.XMax -AnalysisExtentXmin) * (AnalysisExtent.YMax -AnalysisExtentYmin)
 	
 StartXMin = AnalysisExtent.XMin
