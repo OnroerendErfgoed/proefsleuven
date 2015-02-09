@@ -747,7 +747,7 @@ for Simulations in range (1, NSimulations + 1):
 
     ClippedFeatures = int(arcpy.GetCount_management(SimPlanClip_3).getOutput(0))
     ClippedFeaturesIntersectionCount = 0
-    with arcpy.da.SearchCursor(ExtentFeatureClass, "Join_Count") as cursor:     
+    with arcpy.da.SearchCursor(SimPlanClip_3, "Join_Count") as cursor:     
         for row in cursor:                                                      
             ClippedFeaturesIntersectionCount = ClippedFeaturesIntersectionCount + row[0] 
     TotalFeatures = int(arcpy.GetCount_management(AnalysisFeatureClass).getOutput(0))
