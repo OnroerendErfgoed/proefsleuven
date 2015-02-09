@@ -218,7 +218,7 @@ arcpy.AddMessage("\nDe gekozen configuratie leidt tot een theoretische dekkingsg
 # bepalen extent van analyse
 
 if ExtentFeatureClass <> "":
-	AnalysisExtent = arcpy.Describe(ExtentFeatureClass).extent
+    AnalysisExtent = arcpy.Describe(ExtentFeatureClass).extent
     AnalysisArea = 0
     with arcpy.da.SearchCursor(ExtentFeatureClass, "SHAPE@AREA") as cursor:
         for row in cursor:
