@@ -219,8 +219,13 @@ arcpy.AddMessage("\nDe gekozen configuratie leidt tot een theoretische dekkingsg
 
 if ExtentFeatureClass <> "":
 	AnalysisExtent = arcpy.Describe(ExtentFeatureClass).extent
+    AnalysisArea = 0
+    with arcpy.da.SearchCursor(ExtentFeatureClass, "SHAPE@AREA") as cursor:
+        for row in cursor:
+            AnalysisArea = AnalysisArea + row[0]
 else:	
 	AnalysisExtent = arcpy.Describe(InputFeatureClass).extent
+    AnalysisArea = (AnalysisExtent.XMax -AnalysisExtentXmin) * (AnalysisExtent.YMax -AnalysisExtentYmin)
 	
 StartXMin = AnalysisExtent.XMin
 StartYMin = AnalysisExtent.YMin
@@ -321,6 +326,7 @@ SimMetaData_Cursor.insertRow(("Dekkingsgraad (C)", str(TrenchCoverage)+"%"))
 SimMetaData_Cursor.insertRow(("Opgravingsplan", InputFeatureClass))
 SimMetaData_Cursor.insertRow(("Analysegebied", ExtentFeatureClass))
 SimMetaData_Cursor.insertRow(("Oppervlakte analysegebied", str(XExtent * YExtent)))
+SimMetaData_Cursor.insertRow(("Oppervlakte opgravingsgebied", str(AnalysisArea)))
 SimMetaData_Cursor.insertRow(("Lengte analysegebied", str(max(XExtent, YExtent))))
 SimMetaData_Cursor.insertRow(("Breedte analysegebied", str(min(XExtent, YExtent))))
 SimMetaData_Cursor.insertRow(("Linkeronderhoek X", str(StartXMin)))
@@ -726,7 +732,7 @@ for Simulations in range (1, NSimulations + 1):
 		
 		TrenchArea = TrenchArea + row[0]
 	
-	TrenchProportion = TrenchArea / (XExtent * YExtent)
+	TrenchProportion = TrenchArea / AnalysisArea
 
 	# snijd de sporen af binnen het sleuvenplan, en zorg dat de sleufnummers aan de afgesneden sporen worden gekoppeld
 	
