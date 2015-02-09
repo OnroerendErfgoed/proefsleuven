@@ -286,7 +286,7 @@ arcpy.AddField_management(SimResult, "F_INT", "LONG", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "A_INT", "FLOAT", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "F_INT_P", "FLOAT", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "A_INT_P", "FLOAT", "", "", "", "", "")
-arcpy.AddField_managenent(SimResult, "F_INT_C", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management(SimResult, "F_INT_C", "FLOAT", "", "", "", "", "")
 
 if ExtentFeatureClass <> "":
     AnalysisFeatureClass = simGDB+"ClippedFeatures"
