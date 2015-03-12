@@ -288,7 +288,23 @@ arcpy.AddField_management(SimResult, "F_INT_P", "FLOAT", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "A_INT_P", "FLOAT", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "N_INT", "FLOAT", "", "", "", "", "")
 arcpy.AddField_management(SimResult, "N_INT_R", "FLOAT", "", "", "", "", "")
-
+arcpy.AddField_managenent("M_CONF", "TEXT", "", "", "", "", "") 
+arcpy.AddField_management("M_L", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_I", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_D", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_W)", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_C", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_PLAN", "TEXT", "", "", "", "", "" )
+arcpy.AddField_management("M_EXTENT", "TEXT", "", "", "", "", "")
+arcpy.AddField_management("M_AREA_AN", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_AREA_EX", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_L_AN", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_W_AN", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_X_MIN", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_Y_MIN", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_X_MAX", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_Y_MAX", "FLOAT", "", "", "", "", "")
+arcpy.AddField_management("M_F_AN", "LONG", "", "", "", "", "")
 
 if ExtentFeatureClass <> "":
     AnalysisFeatureClass = simGDB+"ClippedFeatures"
@@ -793,7 +809,39 @@ for Simulations in range (1, NSimulations + 1):
     
     # voeg de resultaten van de simulatie toe aan SimResult
 
-    SimResult_Cursor = arcpy.da.InsertCursor(SimResult, ("RUN", "TRENCH_AREA", "TRENCH_P", "ROTATION", "MID_X", "MID_Y", "F_INT", "A_INT", "F_INT_P", "A_INT_P", "N_INT", "N_INT_R"))
+    SimResult_Cursor = arcpy.da.InsertCursor(SimResult, 
+                                                        (
+                                                         "RUN", 
+                                                         "TRENCH_AREA", 
+                                                         "TRENCH_P", 
+                                                         "ROTATION", 
+                                                         "MID_X", 
+                                                         "MID_Y", 
+                                                         "F_INT", 
+                                                         "A_INT", 
+                                                         "F_INT_P", 
+                                                         "A_INT_P", 
+                                                         "N_INT", 
+                                                         "N_INT_R",
+                                                         "M_CONF",
+                                                         "M_L",
+                                                         "M_I",
+                                                         "M_D",
+                                                         "M_W",
+                                                         "M_C",
+                                                         "M_PLAN",
+                                                         "M_EXTENT",
+                                                         "M_AREA_AN",
+                                                         "M_AREA_EX",
+                                                         "M_L_AN", 
+                                                         "M_W_AN",
+                                                         "M_X_MIN",
+                                                         "M_Y_MIN",
+                                                         "M_X_MAX",
+                                                         "M_Y_MAX",
+                                                         "M_F_AN"
+                                                        )
+                                             )
     SimResult_Cursor.insertRow((Simulations,
                                     TrenchArea,
                                     TrenchProportion,
@@ -805,7 +853,25 @@ for Simulations in range (1, NSimulations + 1):
                                     ClippedFeaturesPercentage,
                                     ClippedAreaPercentage,
                                     ClippedFeaturesIntersectionCount,
-                                    ClippedFeaturesIntersectionCountRatio))
+                                    ClippedFeaturesIntersectionCountRatio,
+                                    TrenchConfiguration,
+                                    TrenchLength,
+                                    TrenchInterval,
+                                    TrenchDistance,
+                                    TrenchWidth,
+                                    TrenchCoverage,
+                                    InputFeatureClass,
+                                    ExtentFeatureClass,
+                                    XExtent * YExtent,
+                                    AnalysisArea,
+                                    max(XExtent, YExtent),
+                                    min(XExtent, YExtent),
+                                    StartXMin,
+                                    StartYMin,
+                                    EndXMax,
+                                    EndYMax,
+                                    arcpy.GetCount_management(AnalysisFeatureClass).getOutput(0)
+                                 ))
                                     
     edit.stopEditing(True)
                                     
