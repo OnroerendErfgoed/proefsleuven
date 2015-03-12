@@ -753,6 +753,7 @@ for Simulations in range (1, NSimulations + 1):
     TotalFeatures = int(arcpy.GetCount_management(AnalysisFeatureClass).getOutput(0))
     ClippedFeaturesProportion = float(ClippedFeatures) / float(TotalFeatures)
     ClippedFeaturesPercentage = float(100 * ClippedFeaturesProportion)
+    ClippedFeaturesIntersectionCountRatio =  float(ClippedFeaturesIntersectionCount) / float(TotalFeatures)
 
     arcpy.AddMessage("Aantal doorsneden sporen: "+str(ClippedFeatures)+" van "+str(TotalFeatures))
     
@@ -790,7 +791,7 @@ for Simulations in range (1, NSimulations + 1):
     
     # voeg de resultaten van de simulatie toe aan SimResult
 
-    SimResult_Cursor = arcpy.da.InsertCursor(SimResult, ("RUN", "TRENCH_AREA", "TRENCH_P", "ROTATION", "MID_X", "MID_Y", "F_INT", "A_INT", "F_INT_P", "A_INT_P", "F_INT_C" ))
+    SimResult_Cursor = arcpy.da.InsertCursor(SimResult, ("RUN", "TRENCH_AREA", "TRENCH_P", "ROTATION", "MID_X", "MID_Y", "F_INT", "A_INT", "F_INT_P", "A_INT_P", "N_INT", "N_INT_R"))
     SimResult_Cursor.insertRow((Simulations,
                                     TrenchArea,
                                     TrenchProportion,
@@ -801,7 +802,8 @@ for Simulations in range (1, NSimulations + 1):
                                     ClippedArea,
                                     ClippedFeaturesPercentage,
                                     ClippedAreaPercentage,
-                                    ClippedFeaturesIntersectionCount))
+                                    ClippedFeaturesIntersectionCount,
+                                    ClippedFeaturesIntersectionCountRatio))
                                     
     edit.stopEditing(True)
                                     
