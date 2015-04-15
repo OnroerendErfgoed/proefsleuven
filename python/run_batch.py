@@ -18,7 +18,7 @@ parser.add_argument(
                     metavar='ouputfile',
                     type=str,
                     help='Path to outputfile',
-                    dest='outtfile',
+                    dest='outputfile',
                     required=True
                    )
 
