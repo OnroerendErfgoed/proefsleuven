@@ -82,7 +82,7 @@ with open(args.outputfile, 'wb') as outputfile:
                              job['breedte'],
                              job['configuratie'],
                              job['aantal_simulaties'],
-                             'csv'
+                             '.csv'
                             ])
 
             with open(os.path.join(job['workspace'], 'SimResult.csv'), 'rb') as r:
