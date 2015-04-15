@@ -2,6 +2,8 @@ import sys
 import csv
 import subprocess
 import argparse
+import os
+import inspect
 
 parser = argparse.ArgumentParser(description='Run batch of proefsleufisimulaties')
 parser.add_argument(
