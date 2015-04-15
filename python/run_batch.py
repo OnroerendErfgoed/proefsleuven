@@ -85,7 +85,7 @@ with open(args.outputfile, 'wb') as outputfile:
                              'csv'
                             ])
 
-            with open(os.path.join(job.workspace, 'SimResult.csv'), 'rb') as r:
+            with open(os.path.join(job['workspace'], 'SimResult.csv'), 'rb') as r:
                  results = csv.DictReader(r)
                  for result in results:
                      writer.write(result)
