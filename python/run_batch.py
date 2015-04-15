@@ -88,7 +88,7 @@ with open(args.outputfile, 'wb') as outputfile:
             with open(os.path.join(
                                    job['workspace'], 
                                    job['configuratie'], 
-                                   'L%s_I%s_D%s_W%s_%sSims' % [job['sleuflengte'], job['interval'], job['afstand'], job['breedte'], job['aantal_simulaties']],
+                                   'L%s_I%s_D%s_W%s_%sSims' % (job['sleuflengte'], job['interval'], job['afstand'], job['breedte'], job['aantal_simulaties']),
                                    'SimResult.csv'), 'rb') as r:
                  results = csv.DictReader(r)
                  for result in results:
