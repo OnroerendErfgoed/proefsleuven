@@ -3,6 +3,7 @@ import csv
 import subprocess
 import argparse
 import os
+from datetime import datetime
 import inspect
 
 parser = argparse.ArgumentParser(description='Run batch of proefsleufisimulaties')
@@ -17,16 +18,17 @@ parser.add_argument(
 
 parser.add_argument(
                     '-o',
-                    metavar='ouputfile',
+                    metavar='ouputfolder',
                     type=str,
-                    help='Path to outputfile',
-                    dest='outputfile',
+                    help='Path to outputfolder',
+                    dest='outputfolder',
                     required=True
                    )
 
 args = parser.parse_args()
 
-with open(args.outputfile, 'wb') as outputfile:
+outputfile = os.path.join(args.outputfolder, datetime.now().isoformat().replace(':', '-') + '_batch_result.csv')
+with open(outputfile, 'wb') as outputfile:
     fieldnames = [
                   "OBJECTID",
                   "RUN",
