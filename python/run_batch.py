@@ -24,7 +24,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-with open(args.outputfilei, 'wb') as outputfile:
+with open(args.outputfile, 'wb') as outputfile:
     fieldnames = [
                   "RUN",
                   "TRENCH_AREA",
