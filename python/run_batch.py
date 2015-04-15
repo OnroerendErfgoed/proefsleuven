@@ -62,23 +62,26 @@ with open(args.outputfile, 'wb') as outputfile:
     with open(args.inputfile, 'rb') as f:
         jobs = csv.DictReader(f)
         for job in jobs:
-            subprocess.call(sys.executable,
-                            job['workspace'],
-                            job['opgravingsplan'],
-                            job['gebiedsbegrenzing'],
-                            job['veldnaam_voor_analyse'],
-                            job['bepaling_middelpunt'],
-                            job['middelpunt_x'],
-                            job['middelpunt_y'],
-                            job['bepaling_draaihoek'],
-                            job['draaihoek'],
-                            job['sleuflengte'],
-                            job['interval'],
-                            job['afstand'],
-                            job['breedte'],
-                            job['configuratie'],
-                            job['aantal_simulaties'],
-                            'csv')
+            subprocess.call([
+                             sys.executable,
+                             os.path.join(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))), 'proefsleufsimulaties.py'),
+                             job['workspace'],
+                             job['opgravingsplan'],
+                             job['gebiedsbegrenzing'],
+                             job['veldnaam_voor_analyse'],
+                             job['bepaling_middelpunt'],
+                             job['middelpunt_x'],
+                             job['middelpunt_y'],
+                             job['bepaling_draaihoek'],
+                             job['draaihoek'],
+                             job['sleuflengte'],
+                             job['interval'],
+                             job['afstand'],
+                             job['breedte'],
+                             job['configuratie'],
+                             job['aantal_simulaties'],
+                             'csv'
+                            ])
 
             with open(os.path.join(job.workspace, 'SimResult.csv'), 'rb') as r:
                  results = csv.DictReader(r)
