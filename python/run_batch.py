@@ -28,6 +28,7 @@ args = parser.parse_args()
 
 with open(args.outputfile, 'wb') as outputfile:
     fieldnames = [
+                  "OBJECTID",
                   "RUN",
                   "TRENCH_AREA",
                   "TRENCH_P",
