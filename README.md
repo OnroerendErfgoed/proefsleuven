@@ -1,7 +1,7 @@
 Proefsleuven
 ============
 
-Dit is een Git repository voor het onderzoeksproject Archeologisch vooronderzoek met proefsleuven: op zoek naar een optimale strategie.
+Dit is een Git repository voor het onderzoeksproject "Archeologisch vooronderzoek met proefsleuven: op zoek naar een optimale strategie".
 
 Installatie
 -----------
