@@ -9,7 +9,7 @@ Resultaten van dit onderzoek werden gepubliceerd als:
 
 Het originele Python script proefsleufsimulaties.py werd ontwikkeld door Philip Verhagen (Faculty of Humanities, Department of Art and Culture, History, Antiquity, Vrije Universiteit Amsterdam, De Boelelaan 1105, 1081 HV Amsterdam, The Netherlands) in opdracht van het agentschap Onroerend Erfgoed. Nadien werd dit script nog aangevuld en aangepast door medewerkers van het agentschap Onroerend Erfgoed.
 
-Dit scrip mag door derden gebruikt worden voor onderzoek onder de voorwaarden beschreven in de MIT licentie. 
+Dit script mag door derden gebruikt worden voor onderzoek onder de voorwaarden beschreven in de MIT licentie. 
 
 Installatie
 -----------
@@ -20,10 +20,10 @@ Installatie
  git clone git@github.com:OnroerendErfgoed/proefsleuven.git
  ```
 
- of over https (op vonet wordt ssh geblokkeerd):
+ of over https (binnen sommige netwerken wordt ssh geblokkeerd):
 
  ```
- https://github.com/OnroerendErfgoed/proefsleuven.git
+ git clone https://github.com/OnroerendErfgoed/proefsleuven.git
  ```
 
 2. Voeg vervolgens het bestand python\proefsleufsimmulaties.py toe aan ArcGIS (volgens handleiding doc/handleiding_v1.1.pdf).
@@ -34,4 +34,4 @@ Installatie
  C:\Python27\ArcGIS10.1\python.exe D:\proefsleuven\python\run_batch.py -i "D:\SIMULATIES PROEFSLEUVEN\batch_input\simbatch.csv" -o  "d:\SIMULATIES PROEFSLEUVEN\batch_resultaten" 
  ```
 
- Het bestand simbatch.csv moet hiervoor aanwezig zijn. Een voorbeeld kan je vinden onder doc/simbatch.csv
+ Het bestand simbatch.csv moet hiervoor aanwezig zijn. Een voorbeeld kan je vinden onder doc/simbatch.csv. Indien nodig pas je de paden aan naar de locaties van je eigen bestanden.
