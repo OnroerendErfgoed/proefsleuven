@@ -7,7 +7,7 @@ Resultaten van dit onderzoek werden gepubliceerd als:
 - Haneca K., Debruyne S., Vanhoutte S. & Ervynck A. 2016: Archeologisch vooronderzoek met proefsleuven. Op zoek naar een optimale strategie., Onderzoeksrapport agentschap Onroerend Erfgoed Brussel [online: https://www.vlaanderen.be/nl/publicaties/detail/archeologisch-vooronderzoek-met-proefsleuven-op-zoek-naar-een-optimale-strategie].
 - Haneca K., Debruyne S., Vanhoutte S., Ervynck A., Vermeyen M. & Verhagen P. 2017: Simulating trial trenches for archaeological prospection: assessing the variability in intersection rates, Archaeological Prospection 24, p.195–210 [online: https://onlinelibrary.wiley.com/doi/abs/10.1002/arp.1564].
 
-Het originele Python script proefsleufsimulaties.py werd ontwikkeld door Philip Verhagen (Faculty of Humanities, Department of Art and Culture, History, Antiquity, Vrije Universiteit Amsterdam, De Boelelaan 1105, 1081 HV Amsterdam, The Netherlands) in opdracht van het agentschap Onroerend Erfgoed. Nadien werd dit script nog aangevuld en aangepast door medewerkers van het agentschap Onroerend Erfgoed.
+Het originele Python script proefsleufsimulaties.py werd ontwikkeld door Philip Verhagen (Faculty of Humanities, Department of Art and Culture, History, Antiquity, Vrije Universiteit Amsterdam, De Boelelaan 1105, 1081 HV Amsterdam, The Netherlands) in opdracht van het agentschap Onroerend Erfgoed. Nadien werd dit script nog aangevuld en aangepast door medewerkers van het agentschap Onroerend Erfgoed. Het script spreekt functies/modules aan in ArcGIS 10.1.
 
 Dit script mag door derden gebruikt worden voor onderzoek onder de voorwaarden beschreven in de MIT licentie. 
 
